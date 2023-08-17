@@ -62,7 +62,7 @@
             <div class="col-md-8 mb-4">
               <!--Section: Post data-mdb-->
               <section class="border-bottom mb-4">
-                <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(144).jpg"
+                <img src="{{post.postImg.url}}"
                   class="img-fluid shadow-2-strong rounded-5 mb-4" alt="" />
     
                 <div class="row align-items-center mb-4">
@@ -89,53 +89,76 @@
                   </div>
                 </div>
               </section>
-
+              <p><strong class="text-white">{{post.postTitle}}</strong></p>
               <section>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio sapiente molestias
-                  consectetur. Fuga nulla officia error placeat veniam, officiis rerum laboriosam
-                  ullam molestiae magni velit laborum itaque minima doloribus eligendi! Lorem ipsum,
-                  dolor sit amet consectetur adipisicing elit. Optio sapiente molestias consectetur.
-                  Fuga nulla officia error placeat veniam, officiis rerum laboriosam ullam molestiae
-                  magni velit laborum itaque minima doloribus eligendi!
+                <p class="text-white">
+                  {{post.postText}}
                 </p>
-    
-                <p><strong>Optio sapiente molestias consectetur?</strong></p>
-    
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum architecto ex ab aut
-                  tempora officia libero praesentium, sint id magnam eius natus unde blanditiis. Autem
-                  adipisci totam sit consequuntur eligendi.
-                </p>
-    
-                <p class="note note-light">
-                  <strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Optio odit consequatur porro sequi ab distinctio modi. Rerum cum dolores sint,
-                  adipisci ad veritatis laborum eaque illum saepe mollitia ut voluptatum.
-                </p>
-    
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, libero repellat
-                  molestiae aperiam laborum aliquid atque magni nostrum, inventore perspiciatis
-                  possimus quia incidunt maiores molestias eaque nam commodi! Magnam, labore.
-                </p>
-    
-                <img src="https://mdbootstrap.com/img/new/slides/041.jpg" class="img-fluid shadow-1-strong rounded-5 mb-4"
-                  alt="" />
-    
-                <ul>
-                  <li>Lorem</li>
-                  <li>Ipsum</li>
-                  <li>Dolor</li>
-                  <li>Sit</li>
-                  <li>Amet</li>
-                </ul>
-    
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, temporibus nulla
-                  voluptatibus accusantium sapiente doloremque. Doloribus ratione laboriosam culpa. Ab
-                  officiis quidem, debitis nostrum in accusantium dolore veritatis eius est?
-                </p>
+
+                <section class="comment-card">
+                  <div class="container my-5 py-5">
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-md-12 col-lg-10 col-xl-8">
+                        <div class="card" style="background-color:#6293D9;">
+                          <div class="card-body">
+                            <div class="d-flex flex-start align-items-center">
+                              <img class="rounded-circle shadow-1-strong me-3"
+                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                                height="60" />
+                              <div>
+                                <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+                                <p class="text-muted small mb-0">
+                                  Shared publicly - Jan 2020
+                                </p>
+                              </div>
+                            </div>
+                
+                            <p class="mt-3 mb-4 pb-2 text-white">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                              quis nostrud exercitation ullamco laboris nisi ut aliquip consequat.
+                            </p>
+                            
+                            <div class="small d-flex justify-content-start">
+                              <a href="#!" class="d-flex align-items-center me-3">
+                                <i class="far fa-thumbs-up me-2"></i>
+                                <p class="mb-0">Like</p>
+                              </a>
+                              <a href="#!" class="d-flex align-items-center me-3">
+                                <i class="far fa-comment-dots me-2"></i>
+                                <p class="mb-0">Comment</p>
+                              </a>
+                              <a href="#!" class="d-flex align-items-center me-3">
+                                <i class="fas fa-share me-2"></i>
+                                <p class="mb-0">Share</p>
+                              </a>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                              <button type="button" class="btn btn-danger btn-sm">Sil</button>
+                            </div>
+                          </div>
+                          <form class="card-footer py-3 border-0" method="POST">
+                            {% csrf_token %}
+                            <div class="d-flex flex-start w-100">
+                              <img class="rounded-circle shadow-1-strong me-3"
+                                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                                height="40" />
+                              <div class="form-outline w-100">
+                                <input class="form-control" id="textAreaExample" rows="4"
+                                  style="background: #fff;" name="comment">
+                                </input>
+                              </div>
+                            </div>
+                            <div class="float-end mt-2 pt-1">
+                              <button type="submit" class="btn btn-primary btn-sm">Gönder</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
               </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>

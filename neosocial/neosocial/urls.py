@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index,name='anasayfa'),
     path('kategori/<id>/',category,name='category'),
-    path ('detay/',detail, name="detay")
+    path ('detay/<id>/',detail, name="detay")
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

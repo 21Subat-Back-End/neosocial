@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
 
 # Create your views here.
@@ -24,7 +24,19 @@ def category(request, id):
     }
     return render (request,'category.html',context)
 
-def detail(request):
+def detail(request, id):
+    post= Post.objects.get(id=id)
+    comment = Comment.objects.all()
     
+
+    if request.method =='POST':
+        comment =comment.request["comment"]
+        comn = Comment.save
+
+        redirect(request,'detail.html')
     
-    return render (request,'detail.html')
+    context={
+        'post':post,
+        'comment':comment
+    }
+    return render (request,'detail.html',context)

@@ -43,11 +43,33 @@
                 <a class="nav-link active" aria-current="page" href="#">İletişim</a>
               </li>
             </ul>
-            
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-flex">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+              
+              {% if request.user.is_authenticated %}                
+              <img src="request.user.img" class="ms-5 rounded-circle" alt="...">
+              <div class="ms-3 dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{request.user}}
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/profil/">Profil</a></li>
+                  <li><a class="dropdown-item" href="/cıkıs/">Çıkış Yap</a></li>
+                </ul>
+              </div>
+              {% else %}
+              <a href="/kayıtol/">
+                <button class="ms-5 btn btn-outline-light">Kayıt ol</button>
+              </a>
+              <a href="/girisyap/">
+                <button class="ms-2 btn btn-outline-light">Giriş Yap</button>
+              </a>
+              {% endif %}
+
+            </div>
           </div>
         </div>
       </nav>
@@ -57,7 +79,7 @@
             <div class="row">
                 <div class="col-lg-8">              
                     {% for i in post %}
-                    <a class="card-hero" href="detay/{{i.id}}/">
+                    <a class="card-hero" href="detay/{{i.postTitle}}/">
                       <div class="mt-5 post-card mb-3" style="max-width: 540px;">
                           <div class="row g-0">
                             <div class="col-md-4">

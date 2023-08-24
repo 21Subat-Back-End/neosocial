@@ -26,3 +26,14 @@ body{
 .text-primary,.text-muted{
     color: white!important;
 }
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, #A570F8, #778AF0,#70CCF8);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, #A570F8, #778AF0,#70CCF8)
+    }

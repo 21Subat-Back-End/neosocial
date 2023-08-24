@@ -69,8 +69,8 @@
                   <div class="col-lg-6 text-center text-lg-start mb-3 m-lg-0">
                     <img src="https://mdbootstrap.com/img/Photos/Avatars/img (23).jpg" class="rounded-5 shadow-1-strong me-2"
                       height="35" alt="" loading="lazy" />
-                    <span> Published <u>15.07.2020</u> by</span>
-                    <a href="" class="text-dark">Anna</a>
+                    <span> Published <u>{{post.postTime}}</u> by</span>
+                    <a href="" class="text-dark">{{post.user.first_name}} {{post.user.last_name}}</a>
                   </div>
     
                   <div class="col-lg-6 text-center text-lg-end">
@@ -109,9 +109,9 @@
                               src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
                               height="60" />
                               <div>
-                                <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+                                <h6 class="fw-bold text-primary mb-1">{{i.user.first_name}} {{i.user.last_name}}</h6>
                                 <p class="text-muted small mb-0">
-                                  Shared publicly - Jan 2020
+                                  {{i.commentTime}}
                                 </p>
                               </div>
                             </div>
@@ -140,6 +140,9 @@
                           </div>
                         </div>
                           {% endfor %}
+                          
+                          {% if request.user.is_authenticated %}
+                            
                           <div class="text-center text-white mt-3" >
                             <h4>Yorum Yap</h4>
                           </div>
@@ -159,6 +162,13 @@
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">Gönder</button>
                           </form>
+                          {% else %}
+                          <div class="text-center text-white mt-3" >
+                            <a style="color: white; text-decoration:none;" href="/girisyap/">
+                              <h4>Yorum Yapmak için giriş yapın.</h4>
+                            </a>
+                          </div>
+                          {% endif %}
                         </div>
                       </div>
                     </div>

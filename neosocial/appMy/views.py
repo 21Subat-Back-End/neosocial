@@ -130,7 +130,7 @@ def profil(request):
         postImg = request.FILES['postImg']
         category_id = request.POST['category']
         
-        category=Category.objects.get(id=category_id)
+        category = Category.objects.get(id=category_id)
         
         post= Post(postTitle=postTitle,postText=postText,postImg=postImg,category=category)
         

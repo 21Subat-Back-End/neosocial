@@ -34,7 +34,7 @@ def detail(request, postTitle):
 
     if request.method =='POST':
         comment =request.POST['comment']
-        comn = Comment(commentText=comment,commentPost=post)
+        comn = Comment(commentText=comment,commentPost=post,user=request.user)
         comn.save()
         
         return redirect('/detay/' + post.postTitle + '/')
@@ -112,8 +112,23 @@ def logoutt(request):
     return redirect ('anasayfa')
 
 def profil(request):
-    
     categories = Category.objects.all()
+    
+    user_profile = None
+    if request.user.is_authenticated:
+        try:
+            user_profile = Profil.objects.get(user=request.user)
+            
+        except Profil.DoesNotExist:
+            user_profile = Profil(user=request.user)
+            user_profile.save()
+            
+    if request.method =='POST' and 'profil-img' in request.POST:
+            file = request.FILES['image']
+            if user_profile:
+                user_profile.profil_img=file
+                user_profile.save()
+    
     
     if request.method == "POST" and "user" in request.POST:
         user = request.user
@@ -132,7 +147,7 @@ def profil(request):
         
         category = Category.objects.get(id=category_id)
         
-        post= Post(postTitle=postTitle,postText=postText,postImg=postImg,category=category)
+        post= Post(postTitle=postTitle,postText=postText,postImg=postImg,category=category,user=request.user)
         
         post.save()
         

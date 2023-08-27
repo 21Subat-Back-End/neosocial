@@ -82,12 +82,16 @@
                 <div class="row g-0">
                   <div class="col-md-4 gradient-custom text-center text-white"
                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                    <h5>Marie Horwitz</h5>
-                    <p>Web Designer</p>
-                    <i class="far fa-edit mb-5"></i>
-                  </div>
+                  <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      <img src="{{user_profile.profil_img.url}}"
+                        alt="Avatar" class="img-fluid my-5" style="width: 150px;" />
+                        <input name="image" type="file" class="mb-3">
+                        <button name="profil-img" type="submit" class="mb-3 btn btn-primary">Kaydet</button>
+                        <h5>{{request.user.first_name}} {{request.user.last_name}}</h5>
+                      <p>Full stack</p>
+                    </div>
+                  </form>
                   <div class="col-md-8">
                     <form action="" method="POST">
                         {% csrf_token %}

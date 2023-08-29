@@ -1,17 +1,22 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
 from .models import *
 
 # Create your views here.
 
 def index(request):
-    post = Post.objects.all()
+    post = Post.objects.all().order_by('?')
     category = Category.objects.all()
+    profil = Profil.objects.all()
+
+    
     
     context= {
         'post':post,
-        'category':category
+        'category':category,
+        'profil':profil
     }
     return render(request,'index.html',context)
 
@@ -86,6 +91,8 @@ def register(request):
     
     return render (request,'register.html')
 
+
+
 def loginn(request):
     
     if request.method == 'POST':
@@ -111,10 +118,11 @@ def logoutt(request):
     
     return redirect ('anasayfa')
 
+@login_required(login_url='/girisyap/')
 def profil(request):
     categories = Category.objects.all()
     
-    user_profile = None
+    user_profile=None
     if request.user.is_authenticated:
         try:
             user_profile = Profil.objects.get(user=request.user)
@@ -124,7 +132,7 @@ def profil(request):
             user_profile.save()
             
     if request.method =='POST' and 'profil-img' in request.POST:
-            file = request.FILES['image']
+            file = request.FILES.get('image')
             if user_profile:
                 user_profile.profil_img=file
                 user_profile.save()
@@ -154,7 +162,38 @@ def profil(request):
         return redirect('anasayfa')
         
     context = {
-        'categories':categories
+        'categories':categories,
+        'user_profile':user_profile,
+        'profil':profil
     }
     
     return render(request,'profil.html',context)
+
+def liked(request, id):
+    
+    post = Post.objects.get(id=id)
+    
+    if request.user in post.liked.all():
+        post.liked.remove(request.user)
+        liked=True
+        
+    else:
+        post.liked.add(request.user)
+        liked=False
+        
+        
+    post.like_count = post.liked.count()
+    
+    post.save()
+    
+    return redirect('anasayfa')
+
+def trend(request):
+    
+    trend_post = Post.objects.filter(like_count__gte=3).order_by('-like_count')
+    
+    
+    context = {
+        'trend_post':trend_post
+    }
+    return render(request,'trends.html',context)

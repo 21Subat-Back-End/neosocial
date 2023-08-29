@@ -16,6 +16,9 @@ class Post(models.Model):
     postImg = models.ImageField(("post fotoğrafı"), upload_to=None, height_field=None, width_field=None, max_length=None,null=True,blank=True)
     category = models.ForeignKey(Category, verbose_name=("Kategori adı"), on_delete=models.CASCADE,null=True,blank=True)
     postTime = models.DateTimeField((""), auto_now=False, auto_now_add=True,null=True,blank=True)
+    liked = models.ManyToManyField(User,verbose_name=('Beğenenler'),related_name=("liked_post"))
+    like_count = models.PositiveIntegerField(("Beğen sayısı"),default=0)
+
     
     def __str__(self) -> str:
         return self.postTitle

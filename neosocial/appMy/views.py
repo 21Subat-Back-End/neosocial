@@ -3,15 +3,20 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from .models import *
-
+from django.db.models import Q
 # Create your views here.
 
 def index(request):
     post = Post.objects.all().order_by('?')
     category = Category.objects.all()
-    profil = Profil.objects.all()
 
-    
+    query =request.GET.get("q")
+    if query:
+        post = post.filter(
+            Q(postTitle__icontains=query)|
+            Q(postText__icontains=query)|
+            Q(category__title__icontains=query)
+        ).distinct
     
     context= {
         'post':post,
@@ -69,14 +74,14 @@ def register(request):
                     'information':'Bu kullanıcı sistemimizde mevcuttur. Farklı bir kullanıcı adı deneyiniz'
                 }
                 
-                return render(request,'register.html',context)
+                return render(request,'user/register.html',context)
             
             if User.objects.filter(email=email).exists():
                 
                 context = {
                     'information': 'Bu e-mail kullanılıyor. Farklı bir mail adresiyle kayıt olmayı deneyiniz.'
                 }
-                return render(request,'register.html',context)
+                return render(request,'user/register.html',context)
             
             else:
                 user = User.objects.create_user(username=name, email=email, first_name=name, last_name=surname,password=password)
@@ -87,9 +92,9 @@ def register(request):
                 'information':'Parolanız tekrar parolanızla uyuşmuyor, tekrar kayıt olmayı deneyiniz.'
             }
             
-            return render (request,'register.html',context)
+            return render (request,'user/register.html',context)
     
-    return render (request,'register.html')
+    return render (request,'user/register.html')
 
 
 
@@ -108,9 +113,9 @@ def loginn(request):
             context = {
                 'information': 'Girmiş olduğunuz bilgiler hatalı kullanıcı adı ve parolanızı kontrol ediniz.'
             }
-            return render(request, 'login.html', context)
+            return render(request, 'user/login.html', context)
     
-    return render(request, 'login.html')
+    return render(request, 'user/login.html')
 
 def logoutt(request):
     

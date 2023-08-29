@@ -35,5 +35,6 @@ class Comment(models.Model):
 class Profil(models.Model):
     user = models.ForeignKey(User, verbose_name=("Kullanıcı"), on_delete=models.CASCADE,null=True,blank=True)
     profil_img = models.ImageField(("Profil fotoğrafı"), upload_to=None, height_field=None, width_field=None, max_length=None)
+    user =models.OneToOneField(User, verbose_name=(""), on_delete=models.CASCADE)
 
     

@@ -1,0 +1,73 @@
+{% load static %}
+    <nav class="navbar navbar-expand-lg">
+        <img src="" alt="logo">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Anasayfa</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/trend/">Trendler</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Kategoriler
+                </a>
+                <ul class="dropdown-menu">
+                  {% for kategori in category %}
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+  
+                  <li>
+                    <a class="dropdown-item" href="/kategori/{{kategori.id}}/">
+  
+                    </a>{{kategori.title}}
+                  </li>
+                  {% endfor %}
+                </ul>
+              </li>
+              <li class="nav-{">
+                <a class="nav-link active" aria-current="page" href="#">İletişim</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search" method="GET" action="{% url 'anasayfa' %}">
+              <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <div class="d-flex">
+  
+              {% if request.user.is_authenticated %}
+              
+              {% if request.user.profil.profil_img %}
+              <img src="{{ request.user.profil.profil_img.url }}" class="ms-5 rounded-circle" alt="..."
+            style="width: 50px; height: auto;">        
+            {% endif %}
+  
+            <div class="ms-3 dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                {{request.user}}
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profil/">Profil</a></li>
+                <li><a class="dropdown-item" href="/cıkıs/">Çıkış Yap</a></li>
+              </ul>
+            </div>
+            {% else %}
+            <a href="/kayıtol/">
+              <button class="ms-5 btn btn-outline-light">Kayıt ol</button>
+            </a>
+            <a href="/girisyap/">
+              <button class="ms-2 btn btn-outline-light">Giriş Yap</button>
+            </a>
+            {% endif %}
+  
+          </div>
+        </div>
+      </div>
+    </nav>
+  
